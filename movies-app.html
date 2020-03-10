@@ -16,12 +16,15 @@
     <!-- JS Stuff -->
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script>
-        const $INPUTS = $(".form-input")
+        const $INPUTS = $(".form-input");
         let $RATINGSLIST = $(".movie-ratings");
 
+        // checking if the input is valid
+        // ranking is < 0 and > 10
+        // title is at least 2 letters
         function ratingNumber (title, rating){
-            if(isNaN(+rating)){
-                return "rating must be a number";
+            if(isNaN(+rating) || title.length < 2){
+                return "rating must be a number AND title must be a word with more then 2 letters";
             }else if (+rating >= 0 && +rating <= 10){
                 return `${title} : ${rating}`;
             }else{                
@@ -29,13 +32,17 @@
             }
         }
 
+        // removing a movie with the click of this button
         function deleteButton(event){
             $(event.target).closest("div").remove();
         }
 
+        // adding text to the empty div
+        // adding button to empty div
+        // adding div to page
         function appendToPage(event){
             event.preventDefault();
-            let $ratingDiv = $("<div>")
+            let $ratingDiv = $("<div>");
             let $movieTitle = $INPUTS.eq(0).val();
             let $movieRating = $INPUTS.eq(1).val();
             
@@ -43,14 +50,15 @@
             $ratingDiv.text(titleAndRank);
 
             let $deleteButton = $("<button>")
-            $deleteButton.on("click", deleteButton)
-
-            $ratingDiv.append($deleteButton)
+                .html("delete");
+            $deleteButton.on("click", deleteButton);
+            $ratingDiv.append($deleteButton);
             
             $RATINGSLIST.append($ratingDiv);
 
         }
         
+        // submitting the form
         $("form").on("submit", appendToPage)
 
     </script>
