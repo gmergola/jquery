@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#" method="POST">
+        <input class="form-input" type="text" placeholder="Movie Title">
+        <input class="form-input" type="text" placeholder="Rating">
+        <button class= "button" type="submit">Submit the form</button>
+    </form>
+    <section class="movie-ratings"></section>
+    <!-- JS Stuff -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>
+        let $inputs = $(".form-input")
+
+        let $submitButton = $(".button");
+        let $ratingsList = $(".movie-ratings");
+
+
+        $("form").on("submit", function(e){
+            e.preventDefault();
+            let $movieTitle = $inputs.eq(0).val();
+            let $movieRating = $inputs.eq(1).val();
+            // let ratingsString = `${$movieTitle}: ${$movieRating}`;
+
+            let $ratingDiv = $("<div>")
+                .text(`${$movieTitle}: ${$movieRating}`);
+            
+            $ratingsList.append($ratingDiv);
+
+            let $deleteButton = $("<button>").on("click", function(event){
+                $movie = $(event.target);
+                $movie.closest("div").remove();
+            })
+
+            $ratingDiv.append($deleteButton)
+        })
+    </script>
+</body>
+</html>
