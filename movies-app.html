@@ -17,29 +17,32 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script>
         let $inputs = $(".form-input")
-
         let $submitButton = $(".button");
         let $ratingsList = $(".movie-ratings");
 
-
-        $("form").on("submit", function(e){
-            e.preventDefault();
+        function appendToPage(event){
+            event.preventDefault();
             let $movieTitle = $inputs.eq(0).val();
             let $movieRating = $inputs.eq(1).val();
-            // let ratingsString = `${$movieTitle}: ${$movieRating}`;
-
             let $ratingDiv = $("<div>")
                 .text(`${$movieTitle}: ${$movieRating}`);
             
             $ratingsList.append($ratingDiv);
 
-            let $deleteButton = $("<button>").on("click", function(event){
-                $movie = $(event.target);
-                $movie.closest("div").remove();
-            })
+            let $deleteButton = $("<button>")
+            $deleteButton.on("click", deleteButton)
 
             $ratingDiv.append($deleteButton)
-        })
+
+        }
+
+        function deleteButton(event){
+            $movie = $(event.target);
+            $movie.closest("div").remove();
+        }
+        
+        $("form").on("submit", appendToPage)
+
     </script>
 </body>
 </html>
